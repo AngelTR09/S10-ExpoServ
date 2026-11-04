@@ -48,3 +48,15 @@ resource "aws_sqs_queue" "solicitudes_codigo" {
   })
 }
 
+# 3. Tema SNS
+resource "aws_sns_topic" "codigos_verificacion" {
+  name = "codigos-verificacion"
+}
+
+# Queda pendiente hasta que la persona confirme el correo de AWS.
+resource "aws_sns_topic_subscription" "correo" {
+  topic_arn = aws_sns_topic.codigos_verificacion.arn
+  protocol  = "email"
+  endpoint  = var.correo_destino
+}
+
