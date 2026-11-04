@@ -13,3 +13,12 @@ output "url_cola_fallidas" {
   value       = aws_sqs_queue.solicitudes_fallidas.url
 }
 
+output "url_cola_auditoria" {
+  description = "URL de la cola auditoria."
+  value       = aws_sqs_queue.auditoria.url
+}
+
+output "arn_tema" {
+  description = "ARN del tema codigos-verificacion (para aws sns list-subscriptions-by-topic)."
+  value       = aws_sns_topic.codigos_verificacion.arn
+}
