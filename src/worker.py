@@ -1,7 +1,7 @@
 import json
 from config import sqs, sns, QUEUE_URL, TOPIC_ARN
 
-print("👂 Esperando solicitudes...")
+print("Esperando solicitudes...")
 while True:
     resp = sqs.receive_message(
         QueueUrl=QUEUE_URL,
@@ -20,7 +20,7 @@ while True:
                 Message=f"Hola {destino}, tu código es {codigo}. Expira en 2 minutos.",
             )
             sqs.delete_message(QueueUrl=QUEUE_URL, ReceiptHandle=msg["ReceiptHandle"])
-            print(f"✔ Código enviado a {destino} (intento {intento})")
+            print(f"Código enviado a {destino} (intento {intento})")
         except Exception as e:
             # sin borrar: reaparece a los 10 s
-            print(f"✘ Error en intento {intento}: {e}")
+            print(f"Error en intento {intento}: {e}")
