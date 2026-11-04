@@ -71,3 +71,25 @@ Captura 2: el correo de confirmación y la salida de `list-subscriptions-by-topi
 
 Captura 3: la consola de SQS con las tres colas y, en `solicitudes-codigo`, la pestaña de cola de mensajes fallidos con la DLQ y `maxReceiveCount = 3`.
 
+## 4. Las cinco pruebas
+
+Los comandos `python3` se ejecutan desde `src/`.
+
+### Prueba 1: camino feliz
+
+En la terminal 2 se arranca `python3 worker.py`. En la terminal 1, `python3 app.py`, y se escribe el correo. Llega el mensaje, se escribe el código y la app responde "Verificado correctamente".
+
+Captura 4: la terminal 1 con la solicitud enviada y la verificación, la terminal 2 con el código enviado y el correo recibido, todo en una sola imagen.
+
+### Prueba 2: el worker está caído
+
+Se apaga el worker con `Ctrl+C` y se ejecuta `python3 app.py` en la terminal 1. La app no falla, solo encola. Para ver el mensaje esperando:
+
+```bash
+aws sqs get-queue-attributes --queue-url "$QUEUE_URL" --attribute-names ApproximateNumberOfMessages
+```
+
+Debe devolver `"1"`. El contador es aproximado, así que si sale 0 conviene repetir el comando unos segundos después. Al encender de nuevo `python3 worker.py`, el correo llega igual.
+
+Captura 5: la app funcionando sin worker, el atributo `ApproximateNumberOfMessages: 1` y el correo llegando después de encender el worker.
+
