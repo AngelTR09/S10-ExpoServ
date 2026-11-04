@@ -13,3 +13,7 @@ Los comandos parten de la carpeta raíz, la que contiene `terraform/` y `src/`. 
 
 Se crean tres colas (`solicitudes-codigo`, `solicitudes-fallidas` y `auditoria`) y un tema (`codigos-verificacion`).
 
+## 1. Requisitos
+
+Hacen falta Terraform 1.8 o superior, AWS CLI v2 y Python 3.9 o superior. Las credenciales deben tener permisos sobre SQS y SNS; en el laboratorio se usa el rol `S10-SQS-SNS` a través del perfil `s10-sqs-sns`. Las dependencias de Python se instalan con `pip install -r requirements.txt`. Para las pruebas conviene tener cuatro terminales abiertas.
+
