@@ -11,7 +11,7 @@ def solicitar_codigo(destino):
         "destino": destino,
         "codigo": codigo,
     }))
-    print("📨 Solicitud enviada a la cola. Revisa tu correo.")
+    print("Solicitud enviada a la cola. Revisa tu correo.")
     return codigo, time.time()
 
 destino = input("Correo: ").strip()
@@ -24,12 +24,12 @@ while intentos < MAX_INTENTOS:
         codigo, creado = solicitar_codigo(destino)
         continue
     if time.time() - creado > EXPIRA_SEG:
-        print("⌛ Código expirado. Escribe R para pedir otro.")
+        print("Código expirado. Escribe R para pedir otro.")
         continue
     intentos += 1
     if entrada == codigo:
-        print("✔ Verificado correctamente")
+        print("Verificado correctamente")
         break
-    print(f"✘ Código incorrecto ({MAX_INTENTOS - intentos} intentos restantes)")
+    print(f"Código incorrecto ({MAX_INTENTOS - intentos} intentos restantes)")
 else:
-    print("🔒 Demasiados intentos. Cuenta bloqueada temporalmente.")
+    print("Demasiados intentos. Cuenta bloqueada temporalmente.")
